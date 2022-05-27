@@ -24,7 +24,7 @@ public class VoidStaff extends Item
 	@Override
 	public int itemBaseMAGICPEN()
 	{
-		return 45;
+		return 40;
 	}
 	
 }

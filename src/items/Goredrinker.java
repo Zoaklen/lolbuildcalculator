@@ -39,7 +39,7 @@ public class Goredrinker extends Item
 	@Override
 	public int itemBaseOMNIVAMP()
 	{
-		return 10;
+		return 8;
 	}
 
 	@Override
