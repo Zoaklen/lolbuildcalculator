@@ -43,6 +43,8 @@ public class Hullbreaker extends Item
 			armor /= 2;
 			mr /= 2;
 		}
+		c.addArmor(armor);
+		c.addMr(mr);
 	}
 	
 }
