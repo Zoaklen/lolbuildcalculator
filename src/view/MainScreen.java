@@ -3,6 +3,7 @@ package view;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.lang.reflect.UndeclaredThrowableException;
 
 import javax.swing.JButton;
@@ -18,6 +19,8 @@ import javax.swing.SpringLayout;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.jsoup.HttpStatusException;
+
 import bsh.EvalError;
 import bsh.Interpreter;
 import interfaces.CombinationCondition;
@@ -28,6 +31,7 @@ import items.Hullbreaker;
 import items.Item;
 import items.MejaiSoulstealer;
 import items.Riftmaker;
+import main.Champion;
 import main.Main;
 
 /*
@@ -314,7 +318,176 @@ public class MainScreen extends JFrame {
 		hullbreaker.addActionListener(e -> {
 			Hullbreaker.teamTogether = hullbreaker.isSelected();
 		});
+		
+		/*
+	public int ad;
+	public float asBase;
+	public float asRatio;
+	public int asExtraBase;
+	public int health;
+	public int damageHealth;
+	public int mana;
+	public int armor;
+	public int mr;
+	public boolean ranged;
+	public float critMult;*/
+		JLabel championNameLabel = new JLabel("Name: ");
+		JTextField championName = new JTextField("Kayle");
+		JButton pullButton = new JButton("Pull Data");
 
+		JLabel asBaseLabel = new JLabel("Base AS: ");
+		JTextField asBase = new JTextField("");
+		
+		JLabel asRatioLabel = new JLabel("AS Ratio: ");
+		JTextField asRatio = new JTextField("");
+
+		JLabel asExtraBaseLabel = new JLabel("Base Bonus AS: ");
+		JTextField asExtraBase = new JTextField("");
+
+		JLabel healthLabel = new JLabel("Health: ");
+		JTextField health = new JTextField("");
+
+		JLabel manaLabel = new JLabel("Mana: ");
+		JTextField mana = new JTextField("");
+
+		JLabel armorLabel = new JLabel("Armor: ");
+		JTextField armor = new JTextField("");
+
+		JLabel mrLabel = new JLabel("Magic Resistance: ");
+		JTextField mr = new JTextField("");
+
+		JLabel rangedLabel = new JLabel("Ranged: ");
+		JCheckBox ranged = new JCheckBox();
+		
+		JButton applyButton = new JButton("Apply");
+		applyButton.addActionListener(e -> {
+			try
+			{
+				Main.c.asBase = Float.parseFloat(asBase.getText());
+			} catch(Exception ex)
+			{
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Could not parse AS Base.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			try
+			{
+				Main.c.asRatio = Float.parseFloat(asRatio.getText());
+			} catch(Exception ex)
+			{
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Could not parse AS Ratio.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			try
+			{
+				Main.c.asExtraBase = Integer.parseInt(asExtraBase.getText());
+			} catch(Exception ex)
+			{
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Could not parse Base Bonus AS.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			try
+			{
+				Main.c.health = Integer.parseInt(health.getText());
+			} catch(Exception ex)
+			{
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Could not parse Health.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			try
+			{
+				Main.c.mana = Integer.parseInt(mana.getText());
+			} catch(Exception ex)
+			{
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Could not parse Mana.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			try
+			{
+				Main.c.armor = Integer.parseInt(armor.getText());
+			} catch(Exception ex)
+			{
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Could not parse Armor.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			try
+			{
+				Main.c.mr = Integer.parseInt(mr.getText());
+			} catch(Exception ex)
+			{
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Could not parse Magic Resistance.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			Main.c.ranged = ranged.isSelected();
+			JOptionPane.showMessageDialog(this, "Champion data applied!", "Success", JOptionPane.INFORMATION_MESSAGE);
+		});
+
+		ActionListener listener = e -> {
+			championName.setEnabled(false);
+			asBase.setEnabled(false);
+			asRatio.setEnabled(false);
+			asExtraBase.setEnabled(false);
+			health.setEnabled(false);
+			mana.setEnabled(false);
+			armor.setEnabled(false);
+			mr.setEnabled(false);
+			ranged.setEnabled(false);
+			applyButton.setEnabled(false);
+			new Thread(() -> {
+				try
+				{
+					Main.c = new Champion();
+					Champion c = Champion.tryGetChampionData(championName.getText());
+					Main.c = c;
+					JOptionPane.showMessageDialog(this, "Champion data applied!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+				catch(HttpStatusException ex)
+				{
+					ex.printStackTrace();
+					JOptionPane.showMessageDialog(this, "Could not retrieve LoL Wiki data for champion named [" + championName.getText() + "].\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();
+					JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				finally
+				{
+					championName.setEnabled(true);
+					asBase.setText(String.valueOf(Main.c.asBase));
+					asBase.setEnabled(true);
+					asRatio.setText(String.valueOf(Main.c.asRatio));
+					asRatio.setEnabled(true);
+					asExtraBase.setText(String.valueOf(Main.c.asExtraBase));
+					asExtraBase.setEnabled(true);
+					health.setText(String.valueOf(Main.c.health));
+					health.setEnabled(true);
+					mana.setText(String.valueOf(Main.c.mana));
+					mana.setEnabled(true);
+					armor.setText(String.valueOf(Main.c.armor));
+					armor.setEnabled(true);
+					mr.setText(String.valueOf(Main.c.mr));
+					mr.setEnabled(true);
+					ranged.setSelected(Main.c.ranged);
+					ranged.setEnabled(true);
+					applyButton.setEnabled(true);
+				}
+			}).start();
+		};
+		championName.addActionListener(listener);
+		pullButton.addActionListener(listener);
 		layout.putConstraint(SpringLayout.WEST, itemQuant, 16, SpringLayout.WEST, pane);
 		layout.putConstraint(SpringLayout.NORTH, itemQuant, 16, SpringLayout.NORTH, pane);
 
@@ -342,6 +515,75 @@ public class MainScreen extends JFrame {
 
 		layout.putConstraint(SpringLayout.WEST, hullbreaker, 16, SpringLayout.WEST, pane);
 		layout.putConstraint(SpringLayout.NORTH, hullbreaker, 16, SpringLayout.SOUTH, horizonFocusPassive);
+		
+		layout.putConstraint(SpringLayout.WEST, championName, 256, SpringLayout.EAST, itemQuant);
+		layout.putConstraint(SpringLayout.NORTH, championName, 0, SpringLayout.NORTH, itemQuant);
+		layout.putConstraint(SpringLayout.EAST, championName, 128, SpringLayout.WEST, championName);
+		
+		layout.putConstraint(SpringLayout.WEST, pullButton, 8, SpringLayout.EAST, championName);
+		layout.putConstraint(SpringLayout.NORTH, pullButton, 0, SpringLayout.NORTH, championName);
+		layout.putConstraint(SpringLayout.SOUTH, pullButton, 0, SpringLayout.SOUTH, championName);
+
+		layout.putConstraint(SpringLayout.EAST, championNameLabel, -8, SpringLayout.WEST, championName);
+		layout.putConstraint(SpringLayout.SOUTH, championNameLabel, -4, SpringLayout.SOUTH, championName);
+		
+		layout.putConstraint(SpringLayout.WEST, asBase, 0, SpringLayout.WEST, championName);
+		layout.putConstraint(SpringLayout.NORTH, asBase, 4, SpringLayout.SOUTH, championName);
+		layout.putConstraint(SpringLayout.EAST, asBase, 64, SpringLayout.WEST, asBase);
+
+		layout.putConstraint(SpringLayout.EAST, asBaseLabel, -8, SpringLayout.WEST, asBase);
+		layout.putConstraint(SpringLayout.SOUTH, asBaseLabel, -4, SpringLayout.SOUTH, asBase);
+		
+		layout.putConstraint(SpringLayout.WEST, asRatio, 0, SpringLayout.WEST, asBase);
+		layout.putConstraint(SpringLayout.NORTH, asRatio, 4, SpringLayout.SOUTH, asBase);
+		layout.putConstraint(SpringLayout.EAST, asRatio, 64, SpringLayout.WEST, asRatio);
+
+		layout.putConstraint(SpringLayout.EAST, asRatioLabel, -8, SpringLayout.WEST, asRatio);
+		layout.putConstraint(SpringLayout.SOUTH, asRatioLabel, -4, SpringLayout.SOUTH, asRatio);
+		
+		layout.putConstraint(SpringLayout.WEST, asExtraBase, 0, SpringLayout.WEST, asRatio);
+		layout.putConstraint(SpringLayout.NORTH, asExtraBase, 4, SpringLayout.SOUTH, asRatio);
+		layout.putConstraint(SpringLayout.EAST, asExtraBase, 64, SpringLayout.WEST, asExtraBase);
+
+		layout.putConstraint(SpringLayout.EAST, asExtraBaseLabel, -8, SpringLayout.WEST, asExtraBase);
+		layout.putConstraint(SpringLayout.SOUTH, asExtraBaseLabel, -4, SpringLayout.SOUTH, asExtraBase);
+		
+		layout.putConstraint(SpringLayout.WEST, health, 0, SpringLayout.WEST, asExtraBase);
+		layout.putConstraint(SpringLayout.NORTH, health, 4, SpringLayout.SOUTH, asExtraBase);
+		layout.putConstraint(SpringLayout.EAST, health, 64, SpringLayout.WEST, health);
+
+		layout.putConstraint(SpringLayout.EAST, healthLabel, -8, SpringLayout.WEST, health);
+		layout.putConstraint(SpringLayout.SOUTH, healthLabel, -4, SpringLayout.SOUTH, health);
+		
+		layout.putConstraint(SpringLayout.WEST, mana, 0, SpringLayout.WEST, health);
+		layout.putConstraint(SpringLayout.NORTH, mana, 4, SpringLayout.SOUTH, health);
+		layout.putConstraint(SpringLayout.EAST, mana, 64, SpringLayout.WEST, mana);
+
+		layout.putConstraint(SpringLayout.EAST, manaLabel, -8, SpringLayout.WEST, mana);
+		layout.putConstraint(SpringLayout.SOUTH, manaLabel, -4, SpringLayout.SOUTH, mana);
+		
+		layout.putConstraint(SpringLayout.WEST, armor, 0, SpringLayout.WEST, mana);
+		layout.putConstraint(SpringLayout.NORTH, armor, 4, SpringLayout.SOUTH, mana);
+		layout.putConstraint(SpringLayout.EAST, armor, 64, SpringLayout.WEST, armor);
+
+		layout.putConstraint(SpringLayout.EAST, armorLabel, -8, SpringLayout.WEST, armor);
+		layout.putConstraint(SpringLayout.SOUTH, armorLabel, -4, SpringLayout.SOUTH, armor);
+		
+		layout.putConstraint(SpringLayout.WEST, mr, 0, SpringLayout.WEST, armor);
+		layout.putConstraint(SpringLayout.NORTH, mr, 4, SpringLayout.SOUTH, armor);
+		layout.putConstraint(SpringLayout.EAST, mr, 64, SpringLayout.WEST, mr);
+
+		layout.putConstraint(SpringLayout.EAST, mrLabel, -8, SpringLayout.WEST, mr);
+		layout.putConstraint(SpringLayout.SOUTH, mrLabel, -4, SpringLayout.SOUTH, mr);
+		
+		layout.putConstraint(SpringLayout.WEST, ranged, 0, SpringLayout.WEST, mr);
+		layout.putConstraint(SpringLayout.NORTH, ranged, 4, SpringLayout.SOUTH, mr);
+
+		layout.putConstraint(SpringLayout.EAST, rangedLabel, -8, SpringLayout.WEST, ranged);
+		layout.putConstraint(SpringLayout.SOUTH, rangedLabel, -4, SpringLayout.SOUTH, ranged);
+
+		layout.putConstraint(SpringLayout.WEST, applyButton, 0, SpringLayout.WEST, championName);
+		layout.putConstraint(SpringLayout.NORTH, applyButton, 4, SpringLayout.SOUTH, ranged);
 
 		pane.add(itemQuant);
 		pane.add(itemQuantText);
@@ -351,6 +593,26 @@ public class MainScreen extends JFrame {
 		pane.add(crownShield);
 		pane.add(horizonFocusPassive);
 		pane.add(hullbreaker);
+		pane.add(championName);
+		pane.add(championNameLabel);
+		pane.add(pullButton);
+		pane.add(asBase);
+		pane.add(asBaseLabel);
+		pane.add(asRatio);
+		pane.add(asRatioLabel);
+		pane.add(asExtraBase);
+		pane.add(asExtraBaseLabel);
+		pane.add(health);
+		pane.add(healthLabel);
+		pane.add(mana);
+		pane.add(manaLabel);
+		pane.add(armor);
+		pane.add(armorLabel);
+		pane.add(mr);
+		pane.add(mrLabel);
+		pane.add(ranged);
+		pane.add(rangedLabel);
+		pane.add(applyButton);
 		
 		return pane;
 	}
