@@ -1,0 +1,29 @@
+package items;
+
+public class ChemtechPutrifier extends Item
+{
+	@Override
+	public boolean itemMythical()
+	{
+		return false;
+	}
+
+	@Override
+	public int itemCost()
+	{
+		return 2300;
+	}
+
+	@Override
+	public int itemBaseAP()
+	{
+		return 55;
+	}
+
+	@Override
+	public int itemBaseCDR()
+	{
+		return 20;
+	}
+	
+}
