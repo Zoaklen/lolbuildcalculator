@@ -143,12 +143,12 @@ public class Champion
 
 	public void addPhysPen(int quant)
 	{
-		this.setTotalPhysPen(this.getTotalPhysPen() + quant);
+		this.setTotalPhysPen((int)Math.round((1f - ((1f - (this.getTotalPhysPen()/100f)) * (1f - quant/100f))) * 100f));
 	}
 
 	public void addMagicPen(int quant)
 	{
-		this.setTotalMagicPen(this.getTotalMagicPen() + quant);
+		this.setTotalMagicPen((int)Math.round((1f - ((1f - (this.getTotalMagicPen()/100f)) * (1f - quant/100f))) * 100f));
 	}
 
 	public void addFlatMagicPen(int quant)
