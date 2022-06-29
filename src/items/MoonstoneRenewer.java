@@ -33,4 +33,9 @@ public class MoonstoneRenewer extends Item
 		return 20;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6617.png";
+	}
+	
 }

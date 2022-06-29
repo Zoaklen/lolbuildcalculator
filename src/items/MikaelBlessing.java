@@ -27,4 +27,9 @@ public class MikaelBlessing extends Item
 		return 15;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3222.png";
+	}
+	
 }

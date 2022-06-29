@@ -32,4 +32,8 @@ public class DeathDance extends Item
 		return 15;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6333.png";
+	}
 }

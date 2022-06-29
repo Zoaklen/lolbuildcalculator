@@ -48,4 +48,9 @@ public class DemonicEmbrace extends Item
 			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(target.getTotalHealth() * 0.018f * 4f));
 		}
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/4637.png";
+	}
 }

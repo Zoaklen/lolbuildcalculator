@@ -26,5 +26,8 @@ public class KnightVow extends Item
 	{
 		return 10;
 	}
-	
+	@Override
+	public String itemImg() {
+		return "data/item/3109.png";
+	}
 }

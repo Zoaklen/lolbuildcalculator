@@ -33,4 +33,9 @@ public class UmbralGlaive extends Item
 		return 10;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3179.png";
+	}
+	
 }

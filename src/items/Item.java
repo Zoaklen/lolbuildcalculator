@@ -39,6 +39,8 @@ public abstract class Item
 		this.stacks = 0;
 	}
 	
+	public abstract String itemImg();
+	
 	public abstract boolean itemMythical();
 	public abstract int itemCost();
 

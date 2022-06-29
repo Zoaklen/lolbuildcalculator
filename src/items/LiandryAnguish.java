@@ -49,4 +49,8 @@ public class LiandryAnguish extends Item
 	{
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(60 + c.getTotalAp() * 0.06f + target.getTotalHealth() * 0.04f));
 	}
+	@Override
+	public String itemImg() {
+		return "data/item/6653.png";
+	}
 }

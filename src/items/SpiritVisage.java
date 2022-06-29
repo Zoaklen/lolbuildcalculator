@@ -33,4 +33,9 @@ public class SpiritVisage extends Item
 		return 10;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3065.png";
+	}
+	
 }

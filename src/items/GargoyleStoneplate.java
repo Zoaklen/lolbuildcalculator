@@ -42,4 +42,8 @@ public class GargoyleStoneplate extends Item
 		c.setTotalMr((int) (c.getTotalMr() * 1.25f));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3193.png";
+	}
 }

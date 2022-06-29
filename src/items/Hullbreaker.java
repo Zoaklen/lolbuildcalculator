@@ -47,4 +47,9 @@ public class Hullbreaker extends Item
 		c.addMr(mr);
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3181.png";
+	}
+	
 }

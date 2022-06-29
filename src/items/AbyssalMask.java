@@ -34,9 +34,15 @@ public class AbyssalMask extends Item
 		return 10;
 	}
 	
+	
 	@Override
 	public void startEffect(Champion c, Champion target)
 	{
 		target.addMr((int) -Math.max(0, Math.min(5 + c.getBonusHealth()*0.012f, 25)));
+	}
+
+	@Override
+	public String itemImg() {
+		return "data/item/8020.png";
 	}
 }

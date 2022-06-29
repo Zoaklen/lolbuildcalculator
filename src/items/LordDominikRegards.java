@@ -70,4 +70,9 @@ public class LordDominikRegards extends Item
 		if(seryldaIndex >= 0)
 			Main.legendaryItemList[seryldaIndex] = serylda;
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3036.png";
+	}
 }

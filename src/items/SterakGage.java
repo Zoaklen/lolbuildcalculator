@@ -29,4 +29,8 @@ public class SterakGage extends Item
 		c.addAd((int) (c.ad * 0.4f));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3053.png";
+	}
 }

@@ -44,4 +44,9 @@ public class TitanicHydra extends Item
 			damage = (int)(3 + c.getTotalHealth() * 0.01125f);
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, damage);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3748.png";
+	}
 }

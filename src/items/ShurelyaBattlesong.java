@@ -42,4 +42,9 @@ public class ShurelyaBattlesong extends Item
 		c.addCdr(5 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/2065.png";
+	}
+	
 }

@@ -27,4 +27,9 @@ public class RylaiCrystalScepter extends Item
 		return 400;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3116.png";
+	}
+	
 }

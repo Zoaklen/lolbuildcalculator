@@ -35,4 +35,9 @@ public class NashorTooth extends Item
 	{
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(15 + c.getTotalAp() * 0.2f));
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3115.png";
+	}
 }

@@ -25,5 +25,8 @@ public class AnathemaChains extends Item
 	{
 		return 20;
 	}
-	
+	@Override
+	public String itemImg() {
+		return "data/item/8001.png";
+	}
 }

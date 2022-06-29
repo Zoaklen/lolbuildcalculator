@@ -40,5 +40,9 @@ public class Fimbulwinter extends Item
 	{
 		c.addHealth((int) (c.getTotalMana() * 0.08f));
 	}
+	@Override
+	public String itemImg() {
+		return "data/item/3121.png";
+	}
 	
 }

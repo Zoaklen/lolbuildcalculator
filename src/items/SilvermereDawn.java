@@ -33,4 +33,8 @@ public class SilvermereDawn extends Item
 		return 35;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6035.png";
+	}
 }

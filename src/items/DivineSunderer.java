@@ -72,4 +72,9 @@ public class DivineSunderer extends Item
 		}
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, dmg);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/6632.png";
+	}
 }

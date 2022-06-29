@@ -48,4 +48,9 @@ public class HextechRocketbolt extends Item
 		c.addFlatMagicPen(5 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3152.png";
+	}
+	
 }

@@ -47,4 +47,9 @@ public class BladeOfTheRuinedKing extends Item
 		if(stacks == 3)
 			d.baseValue += DamageTester.applyDamage(target, d.build, 1, 150, 0f, 0f, 0f, 0f, 0f, 0f, 0, false);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3153.png";
+	}
 }

@@ -49,4 +49,9 @@ public class LocketOfTheIronSolari extends Item
 		c.addMr(3 + 2 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3190.png";
+	}
+	
 }

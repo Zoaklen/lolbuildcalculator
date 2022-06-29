@@ -43,4 +43,9 @@ public class Stormrazor extends Item
 		this.enableEffects = false;
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, 120);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3095.png";
+	}
 }

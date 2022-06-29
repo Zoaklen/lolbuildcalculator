@@ -31,4 +31,8 @@ public class TheCollector extends Item
 	{
 		return 12;
 	}
+	@Override
+	public String itemImg() {
+		return "data/item/6676.png";
+	}
 }

@@ -20,4 +20,8 @@ public class StaffOfFlowingWater extends Item
 		return 50;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6616.png";
+	}
 }

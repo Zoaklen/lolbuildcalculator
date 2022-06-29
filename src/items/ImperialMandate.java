@@ -42,4 +42,8 @@ public class ImperialMandate extends Item
 		c.addAp(15 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/4005.png";
+	}
 }

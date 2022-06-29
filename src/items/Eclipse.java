@@ -53,4 +53,10 @@ public class Eclipse extends Item
 			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, (int)(target.getTotalHealth() * 0.06f));
 		}
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/6692.png";
+	}
+	
 }

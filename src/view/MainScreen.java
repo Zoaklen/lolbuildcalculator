@@ -4,8 +4,14 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Vector;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -47,6 +53,9 @@ public class MainScreen extends JFrame {
     public static JLabel testCountLabel;
     public static JTextField bestHeuristicText;
     public static JTextArea bestCombinationText;
+    public static BufferedImage[] vec = new BufferedImage[6];
+    public static JLabel[] veclabel = new JLabel[6];
+    
     
     private static final String DEFAULT_HEURISTIC_CODE = 
     		"import items.*;\r\n" + 
@@ -633,6 +642,10 @@ public class MainScreen extends JFrame {
 		bestCombinationText = new JTextArea();
 		bestCombinationText.setEnabled(false);
 		
+		for(int i = 0; i < 6; i++) {
+				veclabel[i] = new JLabel();
+		}
+		
 		JButton button = new JButton("Stop");
 		button.addActionListener(e -> {
 			if(lastEvaluationThread != null)
@@ -657,10 +670,13 @@ public class MainScreen extends JFrame {
 		layout.putConstraint(SpringLayout.WEST, bestCombinationLabel, 16, SpringLayout.WEST, pane);
 		layout.putConstraint(SpringLayout.NORTH, bestCombinationLabel, 16, SpringLayout.SOUTH, bestHeuristicLabel);
 
-		layout.putConstraint(SpringLayout.WEST, bestCombinationText, 16, SpringLayout.WEST, pane);
-		layout.putConstraint(SpringLayout.EAST, bestCombinationText, 256, SpringLayout.WEST, bestCombinationText);
-		layout.putConstraint(SpringLayout.NORTH, bestCombinationText, 8, SpringLayout.SOUTH, bestCombinationLabel);
-		layout.putConstraint(SpringLayout.SOUTH, bestCombinationText, 128, SpringLayout.NORTH, bestCombinationText);
+		layout.putConstraint(SpringLayout.WEST, veclabel[0], 16, SpringLayout.WEST, pane);
+		layout.putConstraint(SpringLayout.NORTH, veclabel[0], 8, SpringLayout.SOUTH, bestCombinationLabel);
+		
+		for(int i = 1; i < 6; i++) {
+			layout.putConstraint(SpringLayout.WEST, veclabel[i], 16, SpringLayout.EAST, veclabel[i-1]);
+			layout.putConstraint(SpringLayout.NORTH, veclabel[i], 0, SpringLayout.NORTH, veclabel[i-1]);
+		}
 		
 		layout.putConstraint(SpringLayout.WEST, button, -32, SpringLayout.HORIZONTAL_CENTER, pane);
 		layout.putConstraint(SpringLayout.EAST, button, 32, SpringLayout.HORIZONTAL_CENTER, pane);
@@ -670,7 +686,9 @@ public class MainScreen extends JFrame {
 		pane.add(bestHeuristicLabel);
 		pane.add(testCountLabel);
 		pane.add(bestCombinationLabel);
-		pane.add(bestCombinationText);
+		for (int i = 0; i < 6; i++) {
+			pane.add(veclabel[i]);
+		}
 		pane.add(bestHeuristicText);
 		pane.add(button);
 		

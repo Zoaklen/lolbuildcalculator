@@ -49,4 +49,9 @@ public class TurboChemtank extends Item
 		c.addCdr(5 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6664.png";
+	}
+	
 }
