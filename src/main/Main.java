@@ -121,6 +121,7 @@ public class Main
     public static int mythicItems = 0;
     public static int legendaryItems = 0;
     public static Champion c = new Champion();
+    public static Item[] forcingItem = new Item[6];
     
     public static int QUANT = 6;
     
@@ -155,8 +156,15 @@ public class Main
                 // adiciona na lista atual, remove da lista de itens
             	if(list[firstIndex] == null)
             		continue;
-                listaAtual[0] = list[firstIndex];
-                list[firstIndex] = null;
+            	if(forcingItem[0] == null)
+            	{
+            		listaAtual[0] = list[firstIndex];
+            		list[firstIndex] = null;
+            	}
+            	else
+            	{
+            		listaAtual[0] = forcingItem[0];
+            	}
                 System.out.println("Testing mythic " + listaAtual[0].name);
 
                 // testa a combina��o
@@ -174,8 +182,16 @@ public class Main
                 		if(legendaryItemList[j] == null)
                 			continue;
                 		
-                		listaAtual[1] = legendaryItemList[j];
-                		legendaryItemList[j] = null;
+                		if(forcingItem[1] == null)
+                    	{
+                    		listaAtual[1] = legendaryItemList[j];
+                    		legendaryItemList[j] = null;
+                    	}
+                    	else
+                    	{
+                    		listaAtual[1] = forcingItem[1];
+                    	}
+                		
                 		if(QUANT == 2)
         				{
     						if(!evaluatingItems.get())
@@ -187,10 +203,17 @@ public class Main
                         	listaAtual[1].beforeProcedure();
                 			for(int k = 0;k < legendaryItemList.length;k++)
                 			{
-                				if(legendaryItemList[k] == null)
-                					continue;
-                				listaAtual[2] = legendaryItemList[k];
-                				legendaryItemList[k] = null;
+                        		if(forcingItem[2] == null)
+                            	{
+                    				if(legendaryItemList[k] == null)
+                    					continue;
+                            		listaAtual[2] = legendaryItemList[k];
+                            		legendaryItemList[k] = null;
+                            	}
+                            	else
+                            	{
+                            		listaAtual[2] = forcingItem[2];
+                            	}
                 				if(QUANT == 3)
                 				{
             						if(!evaluatingItems.get())
@@ -202,10 +225,17 @@ public class Main
                                 	listaAtual[2].beforeProcedure();
                                 	for(int l = 0;l < legendaryItemList.length;l++)
                                 	{
-                                		if(legendaryItemList[l] == null)
-                                			continue;
-                                		listaAtual[3] = legendaryItemList[l];
-                                		legendaryItemList[l] = null;
+                                		if(forcingItem[3] == null)
+                                    	{
+                                    		if(legendaryItemList[l] == null)
+                                    			continue;
+                                    		listaAtual[3] = legendaryItemList[l];
+                                    		legendaryItemList[l] = null;
+                                    	}
+                                    	else
+                                    	{
+                                    		listaAtual[3] = forcingItem[3];
+                                    	}
                                 		if(QUANT == 4)
                         				{
                     						if(!evaluatingItems.get())
@@ -217,10 +247,17 @@ public class Main
                                         	listaAtual[3].beforeProcedure();
                                 			for(int m = 0;m < legendaryItemList.length;m++)
                                 			{
-                                				if(legendaryItemList[m] == null)
-                                					continue;
-                                				listaAtual[4] = legendaryItemList[m];
-                                				legendaryItemList[m] = null;
+                                        		if(forcingItem[4] == null)
+                                        		{
+                                        			if(legendaryItemList[m] == null)
+                                        				continue;
+                                            		listaAtual[4] = legendaryItemList[m];
+                                            		legendaryItemList[m] = null;
+                                            	}
+                                            	else
+                                            	{
+                                            		listaAtual[4] = forcingItem[4];
+                                            	}
                                 				if(QUANT == 5)
                                 				{
                             						if(!evaluatingItems.get())
@@ -232,40 +269,67 @@ public class Main
                                                 	listaAtual[4].beforeProcedure();
                                 					for(int n = 0;n < legendaryItemList.length;n++)
                                 					{
-                                						if(legendaryItemList[n] == null)
-                                							continue;
                                 						if(!evaluatingItems.get())
                                 							return;
-                                						listaAtual[5] = legendaryItemList[n];
-                                						legendaryItemList[n] = null;
+                                                		if(forcingItem[5] == null)
+                                                    	{
+                                    						if(legendaryItemList[n] == null)
+                                    							continue;
+                                    						
+                                                    		listaAtual[5] = legendaryItemList[n];
+                                                    		legendaryItemList[n] = null;
+                                                    	}
+                                                    	else
+                                                    	{
+                                                    		listaAtual[5] = forcingItem[5];
+                                                    	}
                                 						validateBuild(listaAtual);
-                                						legendaryItemList[n] = listaAtual[5];
-                                						listaAtual[5] = null;
+                                                        if(forcingItem[5] == null)
+                                                        {
+                                                    		legendaryItemList[n] = listaAtual[5];
+                                                    		listaAtual[5] = null;
+                                                        }
                                 					}
                                                 	listaAtual[4].afterProcedure();
                                 				}
-                                				legendaryItemList[m] = listaAtual[4];
-                                				listaAtual[4] = null;
+                                                if(forcingItem[4] == null)
+                                                {
+                                            		legendaryItemList[m] = listaAtual[4];
+                                            		listaAtual[4] = null;
+                                                }
                                 			}
                                         	listaAtual[3].afterProcedure();
                                 		}
-                                		legendaryItemList[l] = listaAtual[3];
-                                		listaAtual[3] = null;
+                                        if(forcingItem[3] == null)
+                                        {
+                                    		legendaryItemList[l] = listaAtual[3];
+                                    		listaAtual[3] = null;
+                                        }
                                 	}
                                 	listaAtual[2].afterProcedure();
                                 }
-                				legendaryItemList[k] = listaAtual[2];
-                				listaAtual[2] = null;
+                                if(forcingItem[2] == null)
+                                {
+                            		legendaryItemList[k] = listaAtual[2];
+                            		listaAtual[2] = null;
+                                }
                 			}
                         	listaAtual[1].afterProcedure();
                 		}
-                		legendaryItemList[j] = listaAtual[1];
-                		listaAtual[1] = null;
+
+                        if(forcingItem[1] == null)
+                        {
+                    		legendaryItemList[j] = listaAtual[1];
+                    		listaAtual[1] = null;
+                        }
                 	}
                 	listaAtual[0].afterProcedure();
                 }
-                list[firstIndex] = listaAtual[0];
-                listaAtual[0] = null;
+                if(forcingItem[0] == null)
+                {
+                	list[firstIndex] = listaAtual[0];
+                	listaAtual[0] = null;
+                }
             }
         }
     }
@@ -338,6 +402,9 @@ public class Main
     }
     
 	public static void main(String[] args) {
+		Main.initializeItemList();
+		Main.initializeInstances();
+		Main.applyItemList();
 		SwingUtilities.invokeLater(new Runnable(){
             public void run(){
             	FlatGitHubDarkContrastIJTheme.setup();
