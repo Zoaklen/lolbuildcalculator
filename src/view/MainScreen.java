@@ -357,67 +357,95 @@ public class MainScreen extends JFrame {
 		applyButton.addActionListener(e -> {
 			try
 			{
-				Main.c.asBase = Float.parseFloat(asBase.getText());
+				if (Float.parseFloat(asBase.getText()) < 10.00 || Float.parseFloat(asBase.getText()) > 0) {
+					Main.c.asBase = Float.parseFloat(asBase.getText());
+				} else {
+					JOptionPane.showMessageDialog(this, "Invalid Base AS value.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch(Exception ex)
 			{
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Could not parse AS Base.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			
+
 			try
 			{
-				Main.c.asRatio = Float.parseFloat(asRatio.getText());
+				if (Float.parseFloat(asRatio.getText()) < 1.00 || Float.parseFloat(asRatio.getText()) > 0) {
+					Main.c.asRatio = Float.parseFloat(asRatio.getText());
+				} else {
+					JOptionPane.showMessageDialog(this, "Invalid AS Ratio value.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch(Exception ex)
 			{
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Could not parse AS Ratio.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			
+
 			try
 			{
-				Main.c.asExtraBase = Integer.parseInt(asExtraBase.getText());
+				if (Float.parseFloat(asExtraBase.getText()) < 10.00 || Float.parseFloat(asExtraBase.getText()) > 0) {
+					Main.c.asExtraBase = Integer.parseInt(asExtraBase.getText());
+				} else {
+					JOptionPane.showMessageDialog(this, "Invalid Base Bonus AS value.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch(Exception ex)
 			{
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Could not parse Base Bonus AS.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			
+
 			try
 			{
-				Main.c.health = Integer.parseInt(health.getText());
+				if (Integer.parseInt(health.getText()) < 10000 || Integer.parseInt(health.getText()) > 0) {
+					Main.c.health = Integer.parseInt(health.getText());
+				} else {
+					JOptionPane.showMessageDialog(this, "Invalid Health value.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch(Exception ex)
 			{
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Could not parse Health.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			
+
 			try
 			{
-				Main.c.mana = Integer.parseInt(mana.getText());
+				if (Integer.parseInt(mana.getText()) < 10000 || Integer.parseInt(mana.getText()) > 0) {
+					Main.c.mana = Integer.parseInt(mana.getText());
+				} else {
+					JOptionPane.showMessageDialog(this, "Invalid Mana value.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch(Exception ex)
 			{
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Could not parse Mana.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			
+
 			try
 			{
-				Main.c.armor = Integer.parseInt(armor.getText());
+				if (Integer.parseInt(armor.getText()) < 1000 || Integer.parseInt(armor.getText()) > 0) {
+					Main.c.armor = Integer.parseInt(armor.getText());
+				} else {
+					JOptionPane.showMessageDialog(this, "Invalid Armor value.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch(Exception ex)
 			{
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Could not parse Armor.\n\n"+ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			
+
 			try
 			{
-				Main.c.mr = Integer.parseInt(mr.getText());
+				if (Integer.parseInt(mr.getText()) < 1000 || Integer.parseInt(mr.getText()) > 0) {
+					Main.c.mr = Integer.parseInt(mr.getText());
+				} else {
+					JOptionPane.showMessageDialog(this, "Invalid Magic Resistance value.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch(Exception ex)
 			{
 				ex.printStackTrace();
