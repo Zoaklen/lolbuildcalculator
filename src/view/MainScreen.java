@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.Cursor;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -24,8 +25,10 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.MouseInputListener;
 
 import org.jsoup.HttpStatusException;
+import org.w3c.dom.events.MouseEvent;
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -55,6 +58,8 @@ public class MainScreen extends JFrame {
     public static JTextArea bestCombinationText;
     public static BufferedImage[] vec = new BufferedImage[6];
     public static JLabel[] veclabel = new JLabel[6];
+	public static BufferedImage[] vecCombinedList = new BufferedImage[90];
+    public static JLabel[] vecLabelCombinedList = new JLabel[90];
     
     
     private static final String DEFAULT_HEURISTIC_CODE = 
@@ -105,13 +110,19 @@ public class MainScreen extends JFrame {
     }
     
     public void runTest() {
+    	Main.initializeInstances();
+    	Main.applyItemList();
+    	Main.initializeItemList();
         tabsPane.removeAll();
         tabsPane.add("Heuristic", getHeuristicPane());
         initTabComponent(0);
         tabsPane.add("Settings", getSettingsPane());
         initTabComponent(1);
-        tabsPane.add("Evaluation", getEvaluationPane());
+        tabsPane.add("Force Items", getForceItemPane());
         initTabComponent(2);
+        tabsPane.add("Evaluation", getEvaluationPane());
+        initTabComponent(3);
+
         
         tabsPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
         setSize(new Dimension(800, 600));
@@ -694,6 +705,69 @@ public class MainScreen extends JFrame {
 		
 		return pane;
 	}
+
+	private Component getForceItemPane() {
+    	Container pane = new Container();
+		SpringLayout layout = new SpringLayout();
+		pane.setLayout(layout);
+		
+		for(int i = 0; i < 90; i++) {
+			vecLabelCombinedList[i] = new JLabel();
+		}
+		
+		for(int i = 1; i < 90; i++) {
+			layout.putConstraint(SpringLayout.WEST, vecLabelCombinedList[i], 16, SpringLayout.EAST, vecLabelCombinedList[i-1]);
+			layout.putConstraint(SpringLayout.NORTH, vecLabelCombinedList[i], 0, SpringLayout.NORTH, vecLabelCombinedList[i-1]);
+		}
+		
+		for (int i = 1; i < 90; i++) {
+			System.out.println(Main.itemArrayList.get(i).itemImg());
+			try {
+				MainScreen.vecCombinedList[i] = ImageIO.read(new File(Main.itemArrayList.get(i).itemImg()));
+				MainScreen.vecLabelCombinedList[i].setIcon(new ImageIcon(MainScreen.vecCombinedList[i]));
+				MainScreen.vecLabelCombinedList[i].setToolTipText(Main.combinedList[i].name);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for (int i = 0; i < 90; i++) {
+			vecLabelCombinedList[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			vecLabelCombinedList[i].addMouseListener(new MouseInputListener()) {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// implementar função quando a JLabel for clickada
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}});
+			pane.add(vecLabelCombinedList[i]);
+		}
+		
+		return pane;
+    }
 
 	private void initTabComponent(int i) {
         tabsPane.setTabComponentAt(i, null);
