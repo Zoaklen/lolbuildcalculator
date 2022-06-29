@@ -32,4 +32,9 @@ public class NavoriQuickblades extends Item
 		return 30;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6675.png";
+	}
+	
 }

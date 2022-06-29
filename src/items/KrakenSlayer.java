@@ -53,4 +53,9 @@ public class KrakenSlayer extends Item
 			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 2, (int)(60 + c.getBonusAd()*0.45f));
 		}
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/6672.png";
+	}
 }

@@ -37,4 +37,9 @@ public class DeadManPlate extends Item
 		this.enableEffects = false;
 		d.baseValue += DamageTester.applyDamage(target, d.build, 1, 40 + c.ad, 0f, 0f, 0f, 0f, 0f, 0f, 0, false);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3742.png";
+	}
 }

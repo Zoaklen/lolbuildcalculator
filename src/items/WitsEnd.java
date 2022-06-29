@@ -42,4 +42,9 @@ public class WitsEnd extends Item
 	{
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, 80);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3091.png";
+	}
 }

@@ -33,4 +33,9 @@ public class Galeforce extends Item
 		return 20;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6671.png";
+	}
+	
 }

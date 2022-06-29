@@ -5,9 +5,14 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
-
+import java.util.Vector;
 import javax.swing.AbstractAction;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -28,7 +33,6 @@ import org.jsoup.HttpStatusException;
 
 import bsh.EvalError;
 import bsh.Interpreter;
-import interfaces.CombinationCondition;
 import interfaces.Heuristic;
 import items.CrownOfTheShatteredQueen;
 import items.HorizonFocus;
@@ -52,6 +56,9 @@ public class MainScreen extends JFrame {
     public static JLabel testCountLabel;
     public static JTextField bestHeuristicText;
     public static JTextArea bestCombinationText;
+    public static BufferedImage[] vec = new BufferedImage[6];
+    public static JLabel[] veclabel = new JLabel[6];
+    
     
     private static final String DEFAULT_HEURISTIC_CODE = 
     		"import items.*;\r\n" + 
@@ -80,11 +87,7 @@ public class MainScreen extends JFrame {
     		"	*/\r\n" +
     		"\r\n"+
     		"	return 0;\r\n" + 
-    		"}";
-    
-    private static final String DEFAULT_CONDITION_CODE = "import items.*;\r\n" + 
-    		"import main.*;\r\n" + 
-    		"import interfaces.*;\r\n" + 
+    		"}" + 
     		"\r\n" + 
     		"public boolean isValidBuild(Item[] build, Champion c)\r\n" + 
     		"{\r\n" + 
@@ -123,12 +126,11 @@ public class MainScreen extends JFrame {
 
 		JLabel heuristicLabel = new JLabel("Heuristic function");
 		
-		JLabel conditionLabel = new JLabel("Condition function");
-		
 		JTextArea heuristicArea = new JTextArea(MainScreen.DEFAULT_HEURISTIC_CODE);
 		final UndoManager undo = new UndoManager();
 		JScrollPane heuristicField = new JScrollPane(heuristicArea);
 		heuristicField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    
 		heuristicArea.getDocument().addUndoableEditListener(e -> {
 			undo.addEdit(e.getEdit());
 		});
@@ -145,20 +147,15 @@ public class MainScreen extends JFrame {
 			}
 		});
 		heuristicArea.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "Undo");
-
-		JTextArea conditionArea = new JTextArea(MainScreen.DEFAULT_CONDITION_CODE);
-		JScrollPane conditionField = new JScrollPane(conditionArea);
-		conditionField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
+    
 		runButton = new JButton("Run");
+		final JFrame screenFrame = this;
 		runButton.addActionListener(e -> {
 			Interpreter interpreter = new Interpreter();
 			try
 			{
 				interpreter.eval(heuristicArea.getText());
-				interpreter.eval(conditionArea.getText());
 				RuntimeHeuristic.heuristic = (Heuristic)interpreter.eval("return (Heuristic)this;");
-				RuntimeHeuristic.combinationCondition = (CombinationCondition)interpreter.eval("return (CombinationCondition)this;");
 				Main.evaluatingItems.set(true);
 				runButton.setEnabled(false);
 				System.out.println("Threads:" + Thread.activeCount());
@@ -168,6 +165,13 @@ public class MainScreen extends JFrame {
 					{
 						try
 						{
+							String err;
+							if((err = Main.checkForInvalidValues()) != null)
+							{
+								JOptionPane.showMessageDialog(screenFrame, err, "Um erro ocorreu", JOptionPane.ERROR_MESSAGE);
+								return;
+							}
+							
 							Main.maiorAnterior = -Integer.MAX_VALUE;
 							Main.startTime = System.currentTimeMillis();
 							Main.currentTests = 0L;
@@ -217,15 +221,7 @@ public class MainScreen extends JFrame {
 		layout.putConstraint(SpringLayout.WEST, heuristicField, 16, SpringLayout.WEST, pane);
 		layout.putConstraint(SpringLayout.NORTH, heuristicField, 32, SpringLayout.NORTH, pane);
 		layout.putConstraint(SpringLayout.SOUTH, heuristicField, -64, SpringLayout.SOUTH, pane);
-		layout.putConstraint(SpringLayout.EAST, heuristicField, -8, SpringLayout.HORIZONTAL_CENTER, pane);
-
-		layout.putConstraint(SpringLayout.WEST, conditionLabel, 0, SpringLayout.WEST, conditionField);
-		layout.putConstraint(SpringLayout.SOUTH, conditionLabel, -8, SpringLayout.NORTH, conditionField);
-
-		layout.putConstraint(SpringLayout.WEST, conditionField, 8, SpringLayout.HORIZONTAL_CENTER, pane);
-		layout.putConstraint(SpringLayout.NORTH, conditionField, 32, SpringLayout.NORTH, pane);
-		layout.putConstraint(SpringLayout.SOUTH, conditionField, -64, SpringLayout.SOUTH, pane);
-		layout.putConstraint(SpringLayout.EAST, conditionField, -16, SpringLayout.EAST, pane);
+		layout.putConstraint(SpringLayout.EAST, heuristicField, -8, SpringLayout.EAST, pane);
 		
 		layout.putConstraint(SpringLayout.WEST, runButton, -32, SpringLayout.HORIZONTAL_CENTER, pane);
 		layout.putConstraint(SpringLayout.EAST, runButton, 32, SpringLayout.HORIZONTAL_CENTER, pane);
@@ -233,9 +229,7 @@ public class MainScreen extends JFrame {
 		layout.putConstraint(SpringLayout.SOUTH, runButton, -16, SpringLayout.SOUTH, pane);
 
 		pane.add(heuristicField);
-		pane.add(conditionField);
 		pane.add(heuristicLabel);
-		pane.add(conditionLabel);
 		pane.add(runButton);
 		
 		return pane;
@@ -655,6 +649,10 @@ public class MainScreen extends JFrame {
 		bestCombinationText = new JTextArea();
 		bestCombinationText.setEnabled(false);
 		
+		for(int i = 0; i < 6; i++) {
+				veclabel[i] = new JLabel();
+		}
+		
 		JButton button = new JButton("Stop");
 		button.addActionListener(e -> {
 			if(lastEvaluationThread != null)
@@ -679,10 +677,13 @@ public class MainScreen extends JFrame {
 		layout.putConstraint(SpringLayout.WEST, bestCombinationLabel, 16, SpringLayout.WEST, pane);
 		layout.putConstraint(SpringLayout.NORTH, bestCombinationLabel, 16, SpringLayout.SOUTH, bestHeuristicLabel);
 
-		layout.putConstraint(SpringLayout.WEST, bestCombinationText, 16, SpringLayout.WEST, pane);
-		layout.putConstraint(SpringLayout.EAST, bestCombinationText, 256, SpringLayout.WEST, bestCombinationText);
-		layout.putConstraint(SpringLayout.NORTH, bestCombinationText, 8, SpringLayout.SOUTH, bestCombinationLabel);
-		layout.putConstraint(SpringLayout.SOUTH, bestCombinationText, 128, SpringLayout.NORTH, bestCombinationText);
+		layout.putConstraint(SpringLayout.WEST, veclabel[0], 16, SpringLayout.WEST, pane);
+		layout.putConstraint(SpringLayout.NORTH, veclabel[0], 8, SpringLayout.SOUTH, bestCombinationLabel);
+		
+		for(int i = 1; i < 6; i++) {
+			layout.putConstraint(SpringLayout.WEST, veclabel[i], 16, SpringLayout.EAST, veclabel[i-1]);
+			layout.putConstraint(SpringLayout.NORTH, veclabel[i], 0, SpringLayout.NORTH, veclabel[i-1]);
+		}
 		
 		layout.putConstraint(SpringLayout.WEST, button, -32, SpringLayout.HORIZONTAL_CENTER, pane);
 		layout.putConstraint(SpringLayout.EAST, button, 32, SpringLayout.HORIZONTAL_CENTER, pane);
@@ -692,7 +693,9 @@ public class MainScreen extends JFrame {
 		pane.add(bestHeuristicLabel);
 		pane.add(testCountLabel);
 		pane.add(bestCombinationLabel);
-		pane.add(bestCombinationText);
+		for (int i = 0; i < 6; i++) {
+			pane.add(veclabel[i]);
+		}
 		pane.add(bestHeuristicText);
 		pane.add(button);
 		

@@ -33,6 +33,11 @@ public class HorizonFocus extends Item
 	{
 		return 15;
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/4628.png";
+	}
 
 	
 }

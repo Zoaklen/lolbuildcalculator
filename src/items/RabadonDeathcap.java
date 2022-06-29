@@ -29,4 +29,8 @@ public class RabadonDeathcap extends Item
 		c.setTotalAp((int) (c.getTotalAp() * 1.35f));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3089.png";
+	}
 }

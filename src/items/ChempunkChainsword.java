@@ -32,5 +32,9 @@ public class ChempunkChainsword extends Item
 		return 15;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6609.png";
+	}
 	
 }

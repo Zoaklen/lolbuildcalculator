@@ -25,5 +25,9 @@ public class ChemtechPutrifier extends Item
 	{
 		return 20;
 	}
+	@Override
+	public String itemImg() {
+		return "data/item/3011.png";
+	}
 	
 }

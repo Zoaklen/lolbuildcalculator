@@ -1,11 +1,18 @@
 package main;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkContrastIJTheme;
@@ -152,7 +159,7 @@ public class Main
                 list[firstIndex] = null;
                 System.out.println("Testing mythic " + listaAtual[0].name);
 
-                // testa a combinação
+                // testa a combinaï¿½ï¿½o
                 if(QUANT == 1)
 				{
 					if(!evaluatingItems.get())
@@ -166,6 +173,7 @@ public class Main
                 	{
                 		if(legendaryItemList[j] == null)
                 			continue;
+                		
                 		listaAtual[1] = legendaryItemList[j];
                 		legendaryItemList[j] = null;
                 		if(QUANT == 2)
@@ -270,14 +278,19 @@ public class Main
     		if(status > maiorAnterior)
     		{
     			int l = listaAtual.length;
-    			System.out.println("-----------------------\nNova melhor combinação ("+ (int)status +"):");
+    			System.out.println("-----------------------\nNova melhor combinaï¿½ï¿½o ("+ (int)status +"):");
     			StringBuilder text = new StringBuilder();
     			for(int o = 0;o < l;o++)
     			{
     				maiorLista[o] = listaAtual[o];
     				System.out.print(listaAtual[o].name + (o == l-1 ? "" : ", "));
-    				text.append(listaAtual[o].name);
-    				text.append("\n");
+					try {
+						MainScreen.vec[o] = ImageIO.read(new File(listaAtual[o].itemImg()));
+						MainScreen.veclabel[o].setIcon(new ImageIcon(MainScreen.vec[o]));
+						MainScreen.veclabel[o].setToolTipText(listaAtual[o].name);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
     			}
     			System.out.println();
     			MainScreen.bestHeuristicText.setText(String.valueOf((int)status));
@@ -298,7 +311,7 @@ public class Main
     
     public static boolean validBuildConditions(Item[] build)
     {
-    	return RuntimeHeuristic.combinationCondition.isValidBuild(build, c);
+    	return RuntimeHeuristic.heuristic.isValidBuild(build, c);
     }
     
     public static float getBuildHeuristic(Item[] build)
@@ -448,6 +461,7 @@ public class Main
 		{
 			try
 			{
+				@SuppressWarnings("deprecation")
 				Item instance = c.newInstance();
 				if(instance.mythic)
 					mythicItems++;
@@ -650,4 +664,12 @@ public class Main
     	
     	return false;
     }
+
+	public static String checkForInvalidValues() {
+		if(MejaiSoulstealer.mejaiStacks < 0 || MejaiSoulstealer.mejaiStacks > 25)
+		{
+			return "O nÃºmero de stacks do Mejai estÃ¡ fora do alcance do item, favor inserir um valor no intervalo de 0 <= stacks <= 25 na aba de configuraÃ§Ãµes.";
+		}
+		return null;
+	}
 }

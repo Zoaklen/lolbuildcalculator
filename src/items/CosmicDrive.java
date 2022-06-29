@@ -44,4 +44,9 @@ public class CosmicDrive extends Item
 			c.addAp(40);
 		}
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/4629.png";
+	}
 }

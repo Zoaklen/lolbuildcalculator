@@ -60,4 +60,9 @@ public class FrostfireGauntlet extends Item
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, damage);
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6662.png";
+	}
+	
 }

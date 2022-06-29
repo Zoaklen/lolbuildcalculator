@@ -26,4 +26,8 @@ public class WarmogArmor extends Item
 		return 10;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3083.png";
+	}
 }

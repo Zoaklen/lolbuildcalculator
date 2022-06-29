@@ -32,4 +32,9 @@ public class EdgeOfNight extends Item
 		return 10;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3814.png";
+	}
+	
 }

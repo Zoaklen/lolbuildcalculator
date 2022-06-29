@@ -27,6 +27,11 @@ public class Shadowflame extends Item
 	{
 		return 200;
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/4645.png";
+	}
 
 	@Override
 	public void itemExtraStatus(Champion c)

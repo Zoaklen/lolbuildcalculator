@@ -42,4 +42,9 @@ public class ProwlerClaw extends Item
 		c.addLethality(5 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6693.png";
+	}
+	
 }

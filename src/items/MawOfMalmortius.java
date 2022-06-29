@@ -32,4 +32,9 @@ public class MawOfMalmortius extends Item
 	{
 		return 20;
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3156.png";
+	}
 }
