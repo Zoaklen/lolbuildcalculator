@@ -138,6 +138,7 @@ public class MainScreen extends JFrame {
 		conditionField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		runButton = new JButton("Run");
+		final JFrame screenFrame = this;
 		runButton.addActionListener(e -> {
 			Interpreter interpreter = new Interpreter();
 			try
@@ -155,6 +156,13 @@ public class MainScreen extends JFrame {
 					{
 						try
 						{
+							String err;
+							if((err = Main.checkForInvalidValues()) != null)
+							{
+								JOptionPane.showMessageDialog(screenFrame, err, "Um erro ocorreu", JOptionPane.ERROR_MESSAGE);
+								return;
+							}
+							
 							Main.maiorAnterior = -Integer.MAX_VALUE;
 							Main.startTime = System.currentTimeMillis();
 							Main.currentTests = 0L;

@@ -159,7 +159,7 @@ public class Main
                 list[firstIndex] = null;
                 System.out.println("Testing mythic " + listaAtual[0].name);
 
-                // testa a combinação
+                // testa a combinaï¿½ï¿½o
                 if(QUANT == 1)
 				{
 					if(!evaluatingItems.get())
@@ -278,7 +278,7 @@ public class Main
     		if(status > maiorAnterior)
     		{
     			int l = listaAtual.length;
-    			System.out.println("-----------------------\nNova melhor combinação ("+ (int)status +"):");
+    			System.out.println("-----------------------\nNova melhor combinaï¿½ï¿½o ("+ (int)status +"):");
     			StringBuilder text = new StringBuilder();
     			for(int o = 0;o < l;o++)
     			{
@@ -664,4 +664,12 @@ public class Main
     	
     	return false;
     }
+
+	public static String checkForInvalidValues() {
+		if(MejaiSoulstealer.mejaiStacks < 0 || MejaiSoulstealer.mejaiStacks > 25)
+		{
+			return "O nÃºmero de stacks do Mejai estÃ¡ fora do alcance do item, favor inserir um valor no intervalo de 0 <= stacks <= 25 na aba de configuraÃ§Ãµes.";
+		}
+		return null;
+	}
 }
