@@ -127,20 +127,20 @@ public class MainScreen extends JFrame {
 		JLabel heuristicLabel = new JLabel("Heuristic function");
 		
 		JTextArea heuristicArea = new JTextArea(MainScreen.DEFAULT_HEURISTIC_CODE);
-		final UndoManager undo = new UndoManager();
+		final UndoManager undoManager = new UndoManager();
 		JScrollPane heuristicField = new JScrollPane(heuristicArea);
 		heuristicField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
     
 		heuristicArea.getDocument().addUndoableEditListener(e -> {
-			undo.addEdit(e.getEdit());
+			undoManager.addEdit(e.getEdit());
 		});
 		heuristicArea.getActionMap().put("Undo", new AbstractAction("Undo") {
 			private static final long serialVersionUID = -5851127238270968020L;
 
 			public void actionPerformed(ActionEvent evt) {
 				try {
-					if (undo.canUndo()) {
-						undo.undo();
+					if (undoManager.canUndo()) {
+						undoManager.undo();
 					}
 				} catch (CannotUndoException e) {
 				}
