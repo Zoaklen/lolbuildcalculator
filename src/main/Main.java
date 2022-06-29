@@ -311,7 +311,7 @@ public class Main
     
     public static boolean validBuildConditions(Item[] build)
     {
-    	return RuntimeHeuristic.combinationCondition.isValidBuild(build, c);
+    	return RuntimeHeuristic.heuristic.isValidBuild(build, c);
     }
     
     public static float getBuildHeuristic(Item[] build)

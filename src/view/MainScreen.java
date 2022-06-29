@@ -29,7 +29,6 @@ import org.jsoup.HttpStatusException;
 
 import bsh.EvalError;
 import bsh.Interpreter;
-import interfaces.CombinationCondition;
 import interfaces.Heuristic;
 import items.CrownOfTheShatteredQueen;
 import items.HorizonFocus;
@@ -84,11 +83,7 @@ public class MainScreen extends JFrame {
     		"	*/\r\n" +
     		"\r\n"+
     		"	return 0;\r\n" + 
-    		"}";
-    
-    private static final String DEFAULT_CONDITION_CODE = "import items.*;\r\n" + 
-    		"import main.*;\r\n" + 
-    		"import interfaces.*;\r\n" + 
+    		"}"+ 
     		"\r\n" + 
     		"public boolean isValidBuild(Item[] build, Champion c)\r\n" + 
     		"{\r\n" + 
@@ -127,15 +122,9 @@ public class MainScreen extends JFrame {
 
 		JLabel heuristicLabel = new JLabel("Heuristic function");
 		
-		JLabel conditionLabel = new JLabel("Condition function");
-		
 		JTextArea heuristicArea = new JTextArea(MainScreen.DEFAULT_HEURISTIC_CODE);
 		JScrollPane heuristicField = new JScrollPane(heuristicArea);
 		heuristicField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
-		JTextArea conditionArea = new JTextArea(MainScreen.DEFAULT_CONDITION_CODE);
-		JScrollPane conditionField = new JScrollPane(conditionArea);
-		conditionField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		runButton = new JButton("Run");
 		final JFrame screenFrame = this;
@@ -144,9 +133,7 @@ public class MainScreen extends JFrame {
 			try
 			{
 				interpreter.eval(heuristicArea.getText());
-				interpreter.eval(conditionArea.getText());
 				RuntimeHeuristic.heuristic = (Heuristic)interpreter.eval("return (Heuristic)this;");
-				RuntimeHeuristic.combinationCondition = (CombinationCondition)interpreter.eval("return (CombinationCondition)this;");
 				Main.evaluatingItems.set(true);
 				runButton.setEnabled(false);
 				System.out.println("Threads:" + Thread.activeCount());
@@ -212,15 +199,7 @@ public class MainScreen extends JFrame {
 		layout.putConstraint(SpringLayout.WEST, heuristicField, 16, SpringLayout.WEST, pane);
 		layout.putConstraint(SpringLayout.NORTH, heuristicField, 32, SpringLayout.NORTH, pane);
 		layout.putConstraint(SpringLayout.SOUTH, heuristicField, -64, SpringLayout.SOUTH, pane);
-		layout.putConstraint(SpringLayout.EAST, heuristicField, -8, SpringLayout.HORIZONTAL_CENTER, pane);
-
-		layout.putConstraint(SpringLayout.WEST, conditionLabel, 0, SpringLayout.WEST, conditionField);
-		layout.putConstraint(SpringLayout.SOUTH, conditionLabel, -8, SpringLayout.NORTH, conditionField);
-
-		layout.putConstraint(SpringLayout.WEST, conditionField, 8, SpringLayout.HORIZONTAL_CENTER, pane);
-		layout.putConstraint(SpringLayout.NORTH, conditionField, 32, SpringLayout.NORTH, pane);
-		layout.putConstraint(SpringLayout.SOUTH, conditionField, -64, SpringLayout.SOUTH, pane);
-		layout.putConstraint(SpringLayout.EAST, conditionField, -16, SpringLayout.EAST, pane);
+		layout.putConstraint(SpringLayout.EAST, heuristicField, -8, SpringLayout.EAST, pane);
 		
 		layout.putConstraint(SpringLayout.WEST, runButton, -32, SpringLayout.HORIZONTAL_CENTER, pane);
 		layout.putConstraint(SpringLayout.EAST, runButton, 32, SpringLayout.HORIZONTAL_CENTER, pane);
@@ -228,9 +207,7 @@ public class MainScreen extends JFrame {
 		layout.putConstraint(SpringLayout.SOUTH, runButton, -16, SpringLayout.SOUTH, pane);
 
 		pane.add(heuristicField);
-		pane.add(conditionField);
 		pane.add(heuristicLabel);
-		pane.add(conditionLabel);
 		pane.add(runButton);
 		
 		return pane;
