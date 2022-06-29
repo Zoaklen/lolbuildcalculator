@@ -141,6 +141,8 @@ public class MainScreen extends JFrame {
 		JLabel heuristicLabel = new JLabel("Heuristic function");
 		
 		JTextArea heuristicArea = new JTextArea(MainScreen.DEFAULT_HEURISTIC_CODE);
+		heuristicArea.setTabSize(2);
+
 		final UndoManager undoManager = new UndoManager();
 		JScrollPane heuristicField = new JScrollPane(heuristicArea);
 		heuristicField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
