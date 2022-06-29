@@ -29,7 +29,7 @@ public class Eclipse extends Item
 	@Override
 	public int itemBaseOMNIVAMP()
 	{
-		return 8;
+		return 7;
 	}
 
 	@Override

@@ -1,5 +1,16 @@
 package main;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 public class Champion
 {
 	public int ad;
@@ -29,6 +40,9 @@ public class Champion
 	private int totalPhysPen;
 	private int totalMagicPen;
 	private int totalFlatMagicPen;
+	
+	public static final Pattern perLevelPattern = Pattern.compile("\\d+\\.?\\d*");
+	public static final Pattern nameExtractPattern = Pattern.compile("Health_([a-zA-Z]+)");
 	
 	public Champion()
 	{
@@ -313,5 +327,87 @@ public class Champion
 		this.totalFlatMagicPen = totalFlatMagicPen;
 	}
 	
-	
+	public static Champion tryGetChampionData(String name) throws MalformedURLException, IOException
+	{
+		name = name.replaceAll(" ", "_");
+		Champion c = new Champion();
+		Matcher m;
+		Document doc = Jsoup.parse(new URL("https://leagueoflegends.fandom.com/wiki/"+name+"/LoL"), 10000);
+		
+		name = doc.selectFirst("*[id^='Health_']").id();
+		m = nameExtractPattern.matcher(name);
+		m.find();
+		name = m.group(1);
+		System.out.println(name);
+		Element health = doc.getElementById("Health_"+name);
+		Element healthLv = doc.getElementById("Health_"+name+"_lvl");
+
+		Element mana = doc.getElementById("ResourceBar_"+name);
+		Element manaLv = doc.getElementById("ResourceBar_"+name+"_lvl");
+		
+		Elements baseAs = doc.getElementsByAttributeValue("data-source", "attack speed");
+
+		Elements asRatio = doc.getElementsByAttributeValue("data-source", "as ratio");
+
+		Element baseBonusAs = doc.getElementById("AttackSpeedBonus_"+name+"_lvl");
+
+		Element armor = doc.getElementById("Armor_"+name);
+		Element armorLv = doc.getElementById("Armor_"+name+"_lvl");
+
+		Element mr = doc.getElementById("MagicResist_"+name);
+		Element mrLv = doc.getElementById("MagicResist_"+name+"_lvl");
+
+		Elements ranged = doc.select("*[data-source=rangetype] > div > span > a:nth-child(2)");
+
+		System.out.println(health.text() + " " + healthLv.text());
+		try
+		{
+			System.out.println(mana.text() + " " + manaLv.text());
+		}
+		catch(Exception ex)
+		{}
+		System.out.println(baseAs.text());
+		System.out.println(asRatio.text());
+		System.out.println(baseBonusAs.text());
+		System.out.println(armor.text() + " " + armorLv.text());
+		System.out.println(mr.text() + " " + mrLv.text());
+		System.out.println(ranged.text());
+		
+		m = perLevelPattern.matcher(healthLv.text());
+		m.find();
+		c.health = (int) (Float.parseFloat(health.text()) + Float.parseFloat(m.group()) * 17);
+
+		try
+		{
+			m = perLevelPattern.matcher(manaLv.text());
+			m.find();
+			c.mana = (int) (Float.parseFloat(mana.text()) + Float.parseFloat(m.group()) * 17);
+		}
+		catch(Exception ex) {c.mana = 0;}
+		
+		m = perLevelPattern.matcher(armorLv.text());
+		m.find();
+		c.armor = (int) (Float.parseFloat(armor.text()) + Float.parseFloat(m.group()) * 17);
+		
+		m = perLevelPattern.matcher(mrLv.text());
+		m.find();
+		c.mr = (int) (Float.parseFloat(mr.text()) + Float.parseFloat(m.group()) * 17);
+
+		m = perLevelPattern.matcher(baseAs.text());
+		m.find();
+		c.asBase = Float.parseFloat(m.group());
+		
+		m = perLevelPattern.matcher(asRatio.text());
+		if(m.find())
+			c.asRatio = Float.parseFloat(m.group());
+		else
+			c.asRatio = 1f;
+		
+		m = perLevelPattern.matcher(baseBonusAs.text());
+		m.find();
+		c.asExtraBase = (int)(Float.parseFloat(m.group()) * 17);
+
+		c.ranged = ranged.text().equalsIgnoreCase("Ranged");
+		return c;
+	}
 }

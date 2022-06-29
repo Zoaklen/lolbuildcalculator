@@ -36,7 +36,7 @@ public class LordDominikRegards extends Item
 	@Override
 	public int itemBasePHYSPEN()
 	{
-		return 35;
+		return 30;
 	}
 	
 	@Override

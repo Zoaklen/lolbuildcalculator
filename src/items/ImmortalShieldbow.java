@@ -43,7 +43,7 @@ public class ImmortalShieldbow extends Item
 	@Override
 	public int itemBaseLIFESTEAL()
 	{
-		return 8;
+		return 7;
 	}
 
 	@Override

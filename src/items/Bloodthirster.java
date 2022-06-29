@@ -30,7 +30,7 @@ public class Bloodthirster extends Item
 	@Override
 	public int itemBaseLIFESTEAL()
 	{
-		return 20;
+		return 18;
 	}
 	
 }

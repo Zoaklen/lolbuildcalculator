@@ -41,11 +41,11 @@ public class DemonicEmbrace extends Item
 	{
 		if(c.ranged)
 		{
-			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(target.getTotalHealth() * 0.048f));
+			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(target.getTotalHealth() * 0.01f * 4f));
 		}
 		else
 		{
-			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(target.getTotalHealth() * 0.08f));
+			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(target.getTotalHealth() * 0.018f * 4f));
 		}
 	}
 }
