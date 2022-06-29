@@ -40,4 +40,9 @@ public class SeraphEmbrace extends Item
 	{
 		c.addCdr((int) ((c.getTotalMana() - c.mana) * 0.013f));
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3040.png";
+	}
 }

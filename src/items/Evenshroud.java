@@ -49,4 +49,9 @@ public class Evenshroud extends Item
 		c.addMr(5 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3001.png";
+	}
+	
 }

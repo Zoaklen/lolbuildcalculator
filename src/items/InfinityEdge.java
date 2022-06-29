@@ -36,4 +36,9 @@ public class InfinityEdge extends Item
 			c.critMult += 0.35f;
 		}
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3031.png";
+	}
 }

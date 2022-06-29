@@ -26,5 +26,8 @@ public class Thornmail extends Item
 	{
 		return 60;
 	}
-	
+	@Override
+	public String itemImg() {
+		return "data/item/3075.png";
+	}
 }

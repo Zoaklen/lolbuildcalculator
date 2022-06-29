@@ -55,4 +55,9 @@ public class DuskbladeOfDraktharr extends Item
 			this.stacks++;
 		}
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/6691.png";
+	}
 }

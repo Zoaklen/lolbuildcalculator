@@ -33,4 +33,8 @@ public class MercurialScimitar extends Item
 		return 30;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3139.png";
+	}
 }

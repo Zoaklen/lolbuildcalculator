@@ -1,11 +1,18 @@
 package main;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkContrastIJTheme;
@@ -166,6 +173,7 @@ public class Main
                 	{
                 		if(legendaryItemList[j] == null)
                 			continue;
+                		
                 		listaAtual[1] = legendaryItemList[j];
                 		legendaryItemList[j] = null;
                 		if(QUANT == 2)
@@ -276,8 +284,13 @@ public class Main
     			{
     				maiorLista[o] = listaAtual[o];
     				System.out.print(listaAtual[o].name + (o == l-1 ? "" : ", "));
-    				text.append(listaAtual[o].name);
-    				text.append("\n");
+					try {
+						MainScreen.vec[o] = ImageIO.read(new File(listaAtual[o].itemImg()));
+						MainScreen.veclabel[o].setIcon(new ImageIcon(MainScreen.vec[o]));
+						MainScreen.veclabel[o].setToolTipText(listaAtual[o].name);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
     			}
     			System.out.println();
     			MainScreen.bestHeuristicText.setText(String.valueOf((int)status));
@@ -448,6 +461,7 @@ public class Main
 		{
 			try
 			{
+				@SuppressWarnings("deprecation")
 				Item instance = c.newInstance();
 				if(instance.mythic)
 					mythicItems++;

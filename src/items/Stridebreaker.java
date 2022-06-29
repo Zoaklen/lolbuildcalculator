@@ -39,4 +39,8 @@ public class Stridebreaker extends Item
 		return 20;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6631.png";
+	}
 }

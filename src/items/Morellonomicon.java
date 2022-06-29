@@ -26,4 +26,8 @@ public class Morellonomicon extends Item
 		return 250;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3165.png";
+	}
 }

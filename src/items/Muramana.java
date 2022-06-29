@@ -57,4 +57,9 @@ public class Muramana extends Item
 			scaling = 0.027f;
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, (int)(c.getTotalMana() * scaling + c.getTotalAd() * 0.06f));
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3042.png";
+	}
 }

@@ -48,4 +48,9 @@ public class Goredrinker extends Item
 		c.addCdr(5 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6630.png";
+	}
+	
 }

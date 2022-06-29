@@ -48,4 +48,8 @@ public class Everfrost extends Item
 		c.addAp(10 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6656.png";
+	}
 }

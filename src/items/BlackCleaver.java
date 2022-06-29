@@ -28,6 +28,11 @@ public class BlackCleaver extends Item
 	{
 		return 350;
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3071.png";
+	}
 
 	@Override
 	public int itemBaseCDR()

@@ -83,4 +83,9 @@ public class ImmortalShieldbow extends Item
 		if(sterakIndex >= 0)
 			Main.legendaryItemList[sterakIndex] = sterak;
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/6673.png";
+	}
 }

@@ -36,4 +36,9 @@ public class VigilantWardstone extends Item
 		c.addAp((int) (c.getTotalAp() * 0.12f));
 		c.addCdr((int) (c.getTotalCdr() * 0.12f));
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/4643.png";
+	}
 }

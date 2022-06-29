@@ -26,4 +26,8 @@ public class SerpentFang extends Item
 		return 12;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6695.png";
+	}
 }

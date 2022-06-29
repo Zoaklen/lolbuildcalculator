@@ -27,4 +27,8 @@ public class GuardianAngel extends Item
 		return 40;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3026.png";
+	}
 }

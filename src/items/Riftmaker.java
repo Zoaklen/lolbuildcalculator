@@ -58,4 +58,9 @@ public class Riftmaker extends Item
 		if(fullyStacked)
 			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 2, (int)(d.baseValue * 0.09f));
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/4633.png";
+	}
 }

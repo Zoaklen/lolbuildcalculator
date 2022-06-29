@@ -27,4 +27,9 @@ public class MejaiSoulstealer extends Item
 		return 100;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3041.png";
+	}
+	
 }

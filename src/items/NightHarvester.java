@@ -50,4 +50,9 @@ public class NightHarvester extends Item
 		this.enableEffects = false;
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(125 + c.getTotalAp() * 0.15f));
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/4636.png";
+	}
 }

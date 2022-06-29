@@ -26,4 +26,8 @@ public class ForceOfNature extends Item
 		return 70;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/4401.png";
+	}
 }

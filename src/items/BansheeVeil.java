@@ -32,4 +32,9 @@ public class BansheeVeil extends Item
 		return 10;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3102.png";
+	}
+	
 }

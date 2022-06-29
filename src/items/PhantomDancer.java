@@ -45,4 +45,9 @@ public class PhantomDancer extends Item
 		}
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3046.png";
+	}
+	
 }

@@ -27,4 +27,8 @@ public class VoidStaff extends Item
 		return 40;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3135.png";
+	}
 }

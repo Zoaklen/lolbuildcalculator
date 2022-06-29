@@ -50,5 +50,8 @@ public class CrownOfTheShatteredQueen extends Item
 		if(enableShield)
 			c.addAp(40);
 	}
-	
+	@Override
+	public String itemImg() {
+		return "data/item/4644.png";
+	}
 }

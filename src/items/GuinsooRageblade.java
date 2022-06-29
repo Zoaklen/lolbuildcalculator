@@ -48,4 +48,9 @@ public class GuinsooRageblade extends Item
 			}
 		}
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3124.png";
+	}
 }

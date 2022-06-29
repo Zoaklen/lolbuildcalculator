@@ -67,4 +67,9 @@ public class EssenceReaver extends Item
 		}
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, damage);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3508.png";
+	}
 }

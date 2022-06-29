@@ -33,4 +33,8 @@ public class YoumuuGhostblade extends Item
 		return 18;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3142.png";
+	}
 }

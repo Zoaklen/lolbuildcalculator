@@ -19,4 +19,9 @@ public class ArdentCenser extends Item
 	{
 		return 60;
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3504.png";
+	}
 }

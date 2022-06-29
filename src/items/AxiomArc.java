@@ -33,4 +33,9 @@ public class AxiomArc extends Item
 		return 25;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6696.png";
+	}
+	
 }

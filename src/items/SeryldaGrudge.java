@@ -59,4 +59,9 @@ public class SeryldaGrudge extends Item
 			Main.legendaryItemList[dominikIndex] = dominik;
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/6694.png";
+	}
+	
 }

@@ -83,4 +83,9 @@ public class TrinityForce extends Item
 
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, damage);
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/3078.png";
+	}
 }

@@ -48,4 +48,9 @@ public class SunfireAegis extends Item
 		c.addHealth(50 * (Main.QUANT-1));
 	}
 	
+	@Override
+	public String itemImg() {
+		return "data/item/3068.png";
+	}
 }
+

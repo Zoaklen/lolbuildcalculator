@@ -26,5 +26,8 @@ public class Redemption extends Item
 	{
 		return 15;
 	}
-	
+	@Override
+	public String itemImg() {
+		return "data/item/3107.png";
+	}
 }

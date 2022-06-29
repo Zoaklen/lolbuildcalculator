@@ -56,4 +56,9 @@ public class LudenTempest extends Item
 		this.enableEffects = false;
 		d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 1, (int)(100 + c.getTotalAp() * 0.1f));
 	}
+	
+	@Override
+	public String itemImg() {
+		return "data/item/6655.png";
+	}
 }
