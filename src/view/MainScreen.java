@@ -3,9 +3,11 @@ package view;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.UndeclaredThrowableException;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -15,9 +17,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 import org.jsoup.HttpStatusException;
 
@@ -121,13 +126,30 @@ public class MainScreen extends JFrame {
 		JLabel conditionLabel = new JLabel("Condition function");
 		
 		JTextArea heuristicArea = new JTextArea(MainScreen.DEFAULT_HEURISTIC_CODE);
+		final UndoManager undo = new UndoManager();
 		JScrollPane heuristicField = new JScrollPane(heuristicArea);
 		heuristicField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+		heuristicArea.getDocument().addUndoableEditListener(e -> {
+			undo.addEdit(e.getEdit());
+		});
+		heuristicArea.getActionMap().put("Undo", new AbstractAction("Undo") {
+			private static final long serialVersionUID = -5851127238270968020L;
+
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					if (undo.canUndo()) {
+						undo.undo();
+					}
+				} catch (CannotUndoException e) {
+				}
+			}
+		});
+		heuristicArea.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "Undo");
+
 		JTextArea conditionArea = new JTextArea(MainScreen.DEFAULT_CONDITION_CODE);
 		JScrollPane conditionField = new JScrollPane(conditionArea);
 		conditionField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
 		runButton = new JButton("Run");
 		runButton.addActionListener(e -> {
 			Interpreter interpreter = new Interpreter();
