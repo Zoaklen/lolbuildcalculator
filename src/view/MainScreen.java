@@ -2,16 +2,17 @@ package view;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.Cursor;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.GrayFilter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -180,7 +181,7 @@ public class MainScreen extends JFrame {
 
 							Main.calculatePossibilities();
 
-							tabsPane.setSelectedIndex(2);
+							tabsPane.setSelectedIndex(3);
 							Main.evaluateItems(new Item[Main.QUANT]);
 						}
 						catch(UndeclaredThrowableException e1)
@@ -707,62 +708,105 @@ public class MainScreen extends JFrame {
 	}
 
 	private Component getForceItemPane() {
+		final Item[] fixItemList = new Item[Main.combinedList.length];
+		boolean[] forcing = new boolean[fixItemList.length];
+		System.arraycopy(Main.combinedList, 0, fixItemList, 0, fixItemList.length);
     	Container pane = new Container();
-		SpringLayout layout = new SpringLayout();
+		FlowLayout layout = new FlowLayout();
 		pane.setLayout(layout);
 		
-		for(int i = 0; i < 90; i++) {
+		for(int i = 0; i < fixItemList.length; i++) {
 			vecLabelCombinedList[i] = new JLabel();
 		}
 		
-		for(int i = 1; i < 90; i++) {
+		/*for(int i = 1; i < 90; i++) {
 			layout.putConstraint(SpringLayout.WEST, vecLabelCombinedList[i], 16, SpringLayout.EAST, vecLabelCombinedList[i-1]);
 			layout.putConstraint(SpringLayout.NORTH, vecLabelCombinedList[i], 0, SpringLayout.NORTH, vecLabelCombinedList[i-1]);
-		}
+		}*/
 		
-		for (int i = 1; i < 90; i++) {
+		for (int i = 1; i < fixItemList.length; i++) {
 			System.out.println(Main.itemArrayList.get(i).itemImg());
 			try {
-				MainScreen.vecCombinedList[i] = ImageIO.read(new File(Main.itemArrayList.get(i).itemImg()));
-				MainScreen.vecLabelCombinedList[i].setIcon(new ImageIcon(MainScreen.vecCombinedList[i]));
-				MainScreen.vecLabelCombinedList[i].setToolTipText(Main.combinedList[i].name);
+				MainScreen.vecCombinedList[i] = ImageIO.read(new File(fixItemList[i].itemImg()));
+				MainScreen.vecLabelCombinedList[i].setIcon(new ImageIcon(GrayFilter.createDisabledImage(MainScreen.vecCombinedList[i])));
+				MainScreen.vecLabelCombinedList[i].setToolTipText(fixItemList[i].name);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		for (int i = 0; i < 90; i++) {
+		for (int i = 0; i < fixItemList.length; i++) {
 			vecLabelCombinedList[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			vecLabelCombinedList[i].addMouseListener(new MouseInputListener()) {
-
+			final int index = i;
+			vecLabelCombinedList[i].addMouseListener(new MouseInputListener() {
 				@Override
-				public void mouseClicked(MouseEvent e) {
-					// implementar função quando a JLabel for clickada
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					System.out.println("Selecionado o item " + fixItemList[index]);
+					forcing[index] = !forcing[index];
+					if(forcing[index])
+					{
+						MainScreen.vecLabelCombinedList[index].setIcon(new ImageIcon(MainScreen.vecCombinedList[index]));
+						for(int i = 0;i < 6;i++)
+						{
+							if(Main.forcingItem[i] == null)
+							{
+								System.out.println("Forçando item " + fixItemList[index].name + " no slot " + (i+1));
+								Main.forcingItem[i] = fixItemList[index];
+								break;
+							}
+						}
+					}
+					else
+					{
+						MainScreen.vecLabelCombinedList[index].setIcon(new ImageIcon(GrayFilter.createDisabledImage(MainScreen.vecCombinedList[index])));
+						for(int i = 0;i < 6;i++)
+						{
+							if(Main.forcingItem[i] == fixItemList[index])
+							{
+								Main.forcingItem[i] = null;
+								break;
+							}
+						}
+					}
 				}
 
 				@Override
-				public void mousePressed(MouseEvent e) {
+				public void mousePressed(java.awt.event.MouseEvent e) {
 					// TODO Auto-generated method stub
 					
 				}
 
 				@Override
-				public void mouseReleased(MouseEvent e) {
+				public void mouseReleased(java.awt.event.MouseEvent e) {
 					// TODO Auto-generated method stub
 					
 				}
 
 				@Override
-				public void mouseEntered(MouseEvent e) {
+				public void mouseEntered(java.awt.event.MouseEvent e) {
 					// TODO Auto-generated method stub
 					
 				}
 
 				@Override
-				public void mouseExited(MouseEvent e) {
+				public void mouseExited(java.awt.event.MouseEvent e) {
 					// TODO Auto-generated method stub
 					
-				}});
+				}
+
+				@Override
+				public void mouseDragged(java.awt.event.MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseMoved(java.awt.event.MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
 			pane.add(vecLabelCombinedList[i]);
 		}
 		
