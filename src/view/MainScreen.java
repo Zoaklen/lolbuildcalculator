@@ -124,7 +124,8 @@ public class MainScreen extends JFrame {
         initTabComponent(2);
         tabsPane.add("Evaluation", getEvaluationPane());
         initTabComponent(3);
-
+        tabsPane.add("Help", getHelpPane());
+        initTabComponent(4);
         
         tabsPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
         setSize(new Dimension(800, 600));
@@ -849,6 +850,29 @@ public class MainScreen extends JFrame {
 		
 		return pane;
     }
+	
+    private Component getHelpPane()
+	{
+		Container pane = new Container();
+		SpringLayout layout = new SpringLayout();
+		pane.setLayout(layout);
+
+		JLabel helpText = new JLabel("<html>To use this software:<br>"
+				+ "1. Go to Heuristics tab and define a heuristic in the getHeuristicValue(Item[] build, Champion c), such as c.getTotalAp() to get the maximum AP build.<br><br>"
+				+ "2. You may want to go to the Settings tab to define items passive conditions and champion status.<br><br>"
+				+ "2.1 To pull data from a champion just type its name and press Pull Data.<br><br>"
+				+ "3. If you want to force items to your build you can select them in the Force Items tab.<br><br>"
+				+ "4. Press the Run button in the Heuristics tab.<br><br>"
+				+ "5. The build combination is going to be shown in the Evaluation tab.</html>");
+
+		layout.putConstraint(SpringLayout.WEST, helpText, 16, SpringLayout.WEST, pane);
+		layout.putConstraint(SpringLayout.EAST, helpText, -16, SpringLayout.EAST, pane);
+		layout.putConstraint(SpringLayout.NORTH, helpText, 32, SpringLayout.NORTH, pane);
+
+		pane.add(helpText);
+		
+		return pane;
+	}
 
 	private void initTabComponent(int i) {
         tabsPane.setTabComponentAt(i, null);
