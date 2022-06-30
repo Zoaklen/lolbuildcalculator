@@ -4,12 +4,15 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Vector;
+import javax.swing.AbstractAction;
 
 import javax.imageio.ImageIO;
 import javax.swing.GrayFilter;
@@ -23,9 +26,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 import javax.swing.event.MouseInputListener;
 
 import org.jsoup.HttpStatusException;
@@ -135,9 +141,27 @@ public class MainScreen extends JFrame {
 		JLabel heuristicLabel = new JLabel("Heuristic function");
 		
 		JTextArea heuristicArea = new JTextArea(MainScreen.DEFAULT_HEURISTIC_CODE);
+		final UndoManager undoManager = new UndoManager();
 		JScrollPane heuristicField = new JScrollPane(heuristicArea);
 		heuristicField.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+    
+		heuristicArea.getDocument().addUndoableEditListener(e -> {
+			undoManager.addEdit(e.getEdit());
+		});
+		heuristicArea.getActionMap().put("Undo", new AbstractAction("Undo") {
+			private static final long serialVersionUID = -5851127238270968020L;
+
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					if (undoManager.canUndo()) {
+						undoManager.undo();
+					}
+				} catch (CannotUndoException e) {
+				}
+			}
+		});
+		heuristicArea.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "Undo");
+    
 		runButton = new JButton("Run");
 		final JFrame screenFrame = this;
 		runButton.addActionListener(e -> {
