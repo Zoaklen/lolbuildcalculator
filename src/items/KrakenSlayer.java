@@ -50,7 +50,7 @@ public class KrakenSlayer extends Item
 		this.stacks++;
 		if(this.stacks % 3 == 0)
 		{
-			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 2, (int)(60 + c.getBonusAd()*0.45f));
+			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 2, (int)(50 + c.getBonusAd()*0.40f));
 		}
 	}
 	

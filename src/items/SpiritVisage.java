@@ -24,7 +24,7 @@ public class SpiritVisage extends Item
 	@Override
 	public int itemBaseMR()
 	{
-		return 40;
+		return 50;
 	}
 
 	@Override

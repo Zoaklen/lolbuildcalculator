@@ -24,7 +24,7 @@ public class KnightVow extends Item
 	@Override
 	public int itemBaseCDR()
 	{
-		return 10;
+		return 20;
 	}
 	@Override
 	public String itemImg() {

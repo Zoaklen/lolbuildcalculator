@@ -21,7 +21,7 @@ public class TurboChemtank extends Item
 	@Override
 	public int itemBaseHEALTH()
 	{
-		return 350;
+		return 450;
 	}
 
 	@Override
