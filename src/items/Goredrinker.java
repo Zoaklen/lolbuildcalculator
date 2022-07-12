@@ -45,7 +45,7 @@ public class Goredrinker extends Item
 	@Override
 	public void itemExtraStatus(Champion c)
 	{
-		c.addCdr(5 * (Main.QUANT-1));
+		c.addCdr(7 * (Main.QUANT-1));
 	}
 	
 	@Override

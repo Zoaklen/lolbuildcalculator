@@ -23,7 +23,7 @@ public class RanduinOmen extends Item
 	@Override
 	public int itemBaseARMOR()
 	{
-		return 80;
+		return 90;
 	}
 
 	@Override

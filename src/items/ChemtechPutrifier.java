@@ -17,7 +17,7 @@ public class ChemtechPutrifier extends Item
 	@Override
 	public int itemBaseAP()
 	{
-		return 55;
+		return 60;
 	}
 
 	@Override

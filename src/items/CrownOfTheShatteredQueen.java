@@ -22,7 +22,7 @@ public class CrownOfTheShatteredQueen extends Item
 	@Override
 	public int itemBaseAP()
 	{
-		return 60;
+		return 70;
 	}
 
 	@Override
