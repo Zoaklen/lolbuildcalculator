@@ -746,11 +746,6 @@ public class MainScreen extends JFrame {
 			vecLabelCombinedList[i] = new JLabel();
 		}
 		
-		/*for(int i = 1; i < 90; i++) {
-			layout.putConstraint(SpringLayout.WEST, vecLabelCombinedList[i], 16, SpringLayout.EAST, vecLabelCombinedList[i-1]);
-			layout.putConstraint(SpringLayout.NORTH, vecLabelCombinedList[i], 0, SpringLayout.NORTH, vecLabelCombinedList[i-1]);
-		}*/
-		
 		for (int i = 1; i < fixItemList.length; i++) {
 			System.out.println(Main.itemArrayList.get(i).itemImg());
 			try {
@@ -772,15 +767,23 @@ public class MainScreen extends JFrame {
 					forcing[index] = !forcing[index];
 					if(forcing[index])
 					{
+						int startIndex = (fixItemList[index].mythic) ? 0 : 1;
 						MainScreen.vecLabelCombinedList[index].setIcon(new ImageIcon(MainScreen.vecCombinedList[index]));
-						for(int i = 0;i < 6;i++)
+						boolean found = false;
+						for(int i = startIndex;i < 6;i++)
 						{
 							if(Main.forcingItem[i] == null)
 							{
 								System.out.println("Forçando item " + fixItemList[index].name + " no slot " + (i+1));
 								Main.forcingItem[i] = fixItemList[index];
+								found = true;
 								break;
 							}
+						}
+						if(!found && startIndex == 1)
+						{
+							System.out.println("Forçando item " + fixItemList[index].name + " no slot " + (1));
+							Main.forcingItem[0] = fixItemList[index];
 						}
 					}
 					else
