@@ -69,37 +69,37 @@ public class MainScreen extends JFrame {
     
     
     private static final String DEFAULT_HEURISTIC_CODE = 
-    		"import items.*;\r\n" + 
-    		"import main.*;\r\n" +
-    		"import interfaces.*;\r\n" + 
-    		"\r\n" + 
+    		"import items.*;\n" + 
+    		"import main.*;\n" +
+    		"import interfaces.*;\n" + 
+    		"\n" + 
     		"Champion target = new Champion(2000, 80, 50);" +
-    		"\r\n" + 
-    		"public float getHeuristicValue(Item[] build, Champion c)\r\n" + 
-    		"{\r\n" + 
-    		"	/*\r\n"
-    		+ "	target.resetStatus();\r\n" + 
-    		"	target.addHealth(2500);\r\n" + 
-    		"	target.addArmor(50);\r\n" + 
-    		"	target.addMr(10000);\r\n" + 
-    		"	for(Item i : build)\r\n" + 
-    		"	{\r\n" + 
-    		"		if(i != null)\r\n" + 
-    		"		{\r\n" + 
-    		"			i.resetStatus();\r\n" + 
-    		"			i.startEffect(c, target);\r\n" + 
-    		"		}\r\n" + 
+    		"\n" + 
+    		"public float getHeuristicValue(Item[] build, Champion c)\n" + 
+    		"{\n" + 
+    		"	/*\n"
+    		+ "	target.resetStatus();\n" + 
+    		"	target.addHealth(2500);\n" + 
+    		"	target.addArmor(50);\n" + 
+    		"	target.addMr(10000);\n" + 
+    		"	for(Item i : build)\n" + 
+    		"	{\n" + 
+    		"		if(i != null)\n" + 
+    		"		{\n" + 
+    		"			i.resetStatus();\n" + 
+    		"			i.startEffect(c, target);\n" + 
+    		"		}\n" + 
     		"	}" + 
-    		"	int damage = 0;\r\n" + 
-    		"	damage += DamageTester.applyDamage(target, build, physMagicTrue, baseDamage, apScalar, adScalar, bonusAdScalar, healthScalar, armorScalar, mrScalar, applyEffects, critable);\r\n" + 
-    		"	*/\r\n" +
-    		"\r\n"+
-    		"	return 0;\r\n" + 
-    		"}" + 
-    		"\r\n" + 
-    		"public boolean isValidBuild(Item[] build, Champion c)\r\n" + 
-    		"{\r\n" + 
-    		"	return true;\r\n" + 
+    		"	int damage = 0;\n" + 
+    		"	damage += DamageTester.applyDamage(target, build, physMagicTrue, baseDamage, apScalar, adScalar, bonusAdScalar, healthScalar, armorScalar, mrScalar, applyEffects, critable);\n" + 
+    		"	*/\n" +
+    		"\n"+
+    		"	return 0;\n" + 
+    		"}\n" + 
+    		"\n" + 
+    		"public boolean isValidBuild(Item[] build, Champion c)\n" + 
+    		"{\n" + 
+    		"	return true;\n" + 
     		"}";
     
     public static boolean isRunning;
@@ -149,6 +149,7 @@ public class MainScreen extends JFrame {
 		heuristicArea.getDocument().addUndoableEditListener(e -> {
 			undoManager.addEdit(e.getEdit());
 		});
+		heuristicArea.setTabSize(4);
 		heuristicArea.getActionMap().put("Undo", new AbstractAction("Undo") {
 			private static final long serialVersionUID = -5851127238270968020L;
 
@@ -350,18 +351,6 @@ public class MainScreen extends JFrame {
 			Hullbreaker.teamTogether = hullbreaker.isSelected();
 		});
 		
-		/*
-	public int ad;
-	public float asBase;
-	public float asRatio;
-	public int asExtraBase;
-	public int health;
-	public int damageHealth;
-	public int mana;
-	public int armor;
-	public int mr;
-	public boolean ranged;
-	public float critMult;*/
 		JLabel championNameLabel = new JLabel("Name: ");
 		JTextField championName = new JTextField("Kayle");
 		JButton pullButton = new JButton("Pull Data");
