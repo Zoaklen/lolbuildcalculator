@@ -40,19 +40,19 @@ public class DivineSunderer extends Item
 	@Override
 	public void itemExtraStatus(Champion c)
 	{
-		c.addPhysPen(5 * (Main.QUANT-1));
-		c.addMagicPen(5 * (Main.QUANT-1));
+		c.addPhysPen(3 * (Main.QUANT-1));
+		c.addMagicPen(3 * (Main.QUANT-1));
 	}
 
 	@Override
 	public void onHit(Champion c, Champion target, Damage d)
 	{
 		this.enableEffects = false;
-		float life = 0.12f;
+		float life = 0.06f;
 		if(c.ranged)
-			life = 0.09f;
+			life = 0.03f;
 
-		int dmg = (int)(target.getTotalHealth() * life);
+		int dmg = (int)(c.ad * 1.25f + target.getTotalHealth() * life);
 		this.stacks++;
 		if(Main.itemInBuild(EssenceReaver.class, d.build))
 		{

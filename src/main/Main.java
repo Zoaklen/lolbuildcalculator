@@ -165,6 +165,7 @@ public class Main
             	{
             		listaAtual[0] = forcingItem[0];
             	}
+            	updateTestCount();
                 System.out.println("Testing mythic " + listaAtual[0].name);
 
                 // testa a combina��o
@@ -289,6 +290,8 @@ public class Main
                                                     		legendaryItemList[n] = listaAtual[5];
                                                     		listaAtual[5] = null;
                                                         }
+                                                        else
+                                                        	break;
                                 					}
                                                 	listaAtual[4].afterProcedure();
                                 				}
@@ -297,6 +300,8 @@ public class Main
                                             		legendaryItemList[m] = listaAtual[4];
                                             		listaAtual[4] = null;
                                                 }
+                                                else
+                                                	break;
                                 			}
                                         	listaAtual[3].afterProcedure();
                                 		}
@@ -305,6 +310,8 @@ public class Main
                                     		legendaryItemList[l] = listaAtual[3];
                                     		listaAtual[3] = null;
                                         }
+                                        else
+                                        	break;
                                 	}
                                 	listaAtual[2].afterProcedure();
                                 }
@@ -313,6 +320,8 @@ public class Main
                             		legendaryItemList[k] = listaAtual[2];
                             		listaAtual[2] = null;
                                 }
+                                else
+                                	break;
                 			}
                         	listaAtual[1].afterProcedure();
                 		}
@@ -322,6 +331,8 @@ public class Main
                     		legendaryItemList[j] = listaAtual[1];
                     		listaAtual[1] = null;
                         }
+                        else
+                        	break;
                 	}
                 	listaAtual[0].afterProcedure();
                 }
@@ -330,6 +341,8 @@ public class Main
                 	list[firstIndex] = listaAtual[0];
                 	listaAtual[0] = null;
                 }
+                else
+                	break;
             }
         }
     }
@@ -365,12 +378,17 @@ public class Main
     	currentTests++;
     	if(currentTests % 1000000000000L == 0 || currentTests >= previousRecord * 10)
     	{
-    		previousRecord = currentTests;
-    		long time = (System.currentTimeMillis()-startTime)/1000L;
-    		String text = String.format("%,d/%,d (%02d:%02d:%02d)", currentTests, totalPossibilities, time/3600L, time%3600L/60L, time%60L);
-    		System.out.println("Tests:" + text);
-    		MainScreen.testCountLabel.setText("Current tests:" + text);
+    		updateTestCount();
     	}
+    }
+    
+    private static void updateTestCount()
+    {
+		previousRecord = currentTests;
+		long time = (System.currentTimeMillis()-startTime)/1000L;
+		String text = String.format("%,d/%,d (%02d:%02d:%02d)", currentTests, totalPossibilities, time/3600L, time%3600L/60L, time%60L);
+		System.out.println("Tests:" + text);
+		MainScreen.testCountLabel.setText("Current tests:" + text);
     }
     
     public static boolean validBuildConditions(Item[] build)
@@ -463,8 +481,13 @@ public class Main
 	
 	public static void calculatePossibilities()
 	{
+		int q = QUANT;
+		for(int i = 0;i < 6;i++)
+			if(forcingItem[i] != null)
+				q--;
+		
 		long b = QUANT < 6 ? mythicItems + legendaryItems : mythicItems;
-		for(int i = 0;i < QUANT-1;i++)
+		for(int i = 0;i < q-1;i++)
 		{
 			b *= legendaryItems - i;
 		}

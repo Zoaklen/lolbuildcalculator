@@ -50,7 +50,8 @@ public class Eclipse extends Item
 		this.stacks++;
 		if(this.stacks == 2)
 		{
-			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, (int)(target.getTotalHealth() * 0.06f));
+			float mult = !c.ranged ? 0.06f : 0.03f;
+			d.baseValue += DamageTester.applyDamageNoEffect(target, d.build, 0, (int)(target.getTotalHealth() * mult));
 		}
 	}
 	
