@@ -17,13 +17,13 @@ public class Morellonomicon extends Item
 	@Override
 	public int itemBaseAP()
 	{
-		return 80;
+		return 90;
 	}
 
 	@Override
 	public int itemBaseHEALTH()
 	{
-		return 250;
+		return 300;
 	}
 	
 	@Override

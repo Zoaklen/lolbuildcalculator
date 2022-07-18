@@ -30,7 +30,7 @@ public class ZekeConvergence extends Item
 	@Override
 	public int itemBaseARMOR()
 	{
-		return 25;
+		return 35;
 	}
 
 	@Override

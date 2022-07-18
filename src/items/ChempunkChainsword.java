@@ -17,7 +17,7 @@ public class ChempunkChainsword extends Item
 	@Override
 	public int itemBaseAD()
 	{
-		return 45;
+		return 55;
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ChempunkChainsword extends Item
 	@Override
 	public int itemBaseCDR()
 	{
-		return 15;
+		return 25;
 	}
 	
 	@Override

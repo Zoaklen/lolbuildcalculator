@@ -35,7 +35,7 @@ public class NightHarvester extends Item
 	@Override
 	public int itemBaseCDR()
 	{
-		return 15;
+		return 25;
 	}
 
 	@Override

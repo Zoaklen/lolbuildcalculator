@@ -25,7 +25,7 @@ public class AbyssalMask extends Item
 	@Override
 	public int itemBaseMR()
 	{
-		return 30;
+		return 35;
 	}
 
 	@Override

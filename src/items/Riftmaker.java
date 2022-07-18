@@ -24,7 +24,7 @@ public class Riftmaker extends Item
 	@Override
 	public int itemBaseAP()
 	{
-		return 80;
+		return 70;
 	}
 
 	@Override
